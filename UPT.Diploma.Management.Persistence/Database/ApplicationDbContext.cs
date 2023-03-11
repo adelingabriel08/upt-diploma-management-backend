@@ -72,6 +72,26 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityR
             .WithOne(x => x.Student)
             .HasForeignKey<Student>(x => x.UserId)
             .IsRequired();
+        
+        modelBuilder.Entity<Company>()
+            .Property(x => x.Name).HasMaxLength(150)
+            .IsRequired()
+            .IsUnicode();
+        
+        modelBuilder.Entity<Company>()
+            .Property(x => x.LogoUrl).HasMaxLength(2000)
+            .IsRequired();
+        
+        modelBuilder.Entity<Company>()
+            .Property(x => x.ShortDescription).HasMaxLength(500)
+            .IsRequired()
+            .IsUnicode();
+        
+        modelBuilder.Entity<Company>()
+            .HasOne(x => x.User)
+            .WithOne(x => x.Company)
+            .HasForeignKey<Company>(x => x.UserId)
+            .IsRequired();
 
     }
 }

@@ -10,4 +10,5 @@ public sealed class ApplicationUser : IdentityUser
     public int FacultyId { get; set; }
     public Faculty? Faculty { get; set; }
     public Student? Student { get; set; }
+    public Company? Company { get; set; }
 }
