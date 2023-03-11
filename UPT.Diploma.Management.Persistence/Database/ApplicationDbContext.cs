@@ -92,6 +92,28 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityR
             .WithOne(x => x.Company)
             .HasForeignKey<Company>(x => x.UserId)
             .IsRequired();
-
+        
+        modelBuilder.Entity<Topic>()
+            .Property(x => x.Name).HasMaxLength(200)
+            .IsRequired()
+            .IsUnicode();
+        
+        modelBuilder.Entity<Topic>()
+            .Property(x => x.Description).HasMaxLength(2000)
+            .IsRequired()
+            .IsUnicode();
+        
+        modelBuilder.Entity<Topic>()
+            .HasOne(x => x.Professor)
+            .WithMany(x => x.Topics);
+        
+        modelBuilder.Entity<Topic>()
+            .HasOne(x => x.Company)
+            .WithMany(x => x.Topics);
+        
+        modelBuilder.Entity<Topic>()
+            .HasOne(x => x.Faculty)
+            .WithMany(x => x.Topics)
+            .IsRequired();
     }
 }

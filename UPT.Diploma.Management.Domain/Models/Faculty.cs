@@ -8,4 +8,5 @@ public class Faculty : EntityBase
     public string ShortName { get; set; }
     
     public ICollection<ApplicationUser>? Users { get; set; }
+    public ICollection<Topic>? Topics { get; set; }
 }
