@@ -31,5 +31,22 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityR
         modelBuilder.Entity<Faculty>()
             .HasIndex(x => x.ShortName)
             .IsUnique();
+
+        modelBuilder.Entity<ApplicationUser>()
+            .Property(x => x.FirstName).HasMaxLength(100)
+            .IsRequired()
+            .IsUnicode();
+        
+        modelBuilder.Entity<ApplicationUser>()
+            .Property(x => x.LastName).HasMaxLength(100)
+            .IsRequired()
+            .IsUnicode();
+        
+        modelBuilder.Entity<ApplicationUser>()
+            .Property(x => x.ProfilePictureUrl).HasMaxLength(2000);
+
+        modelBuilder.Entity<ApplicationUser>()
+            .HasOne(x => x.Faculty)
+            .WithMany(x => x.Users);
     }
 }
