@@ -1,6 +1,7 @@
 using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using UPT.Diploma.Management.Application.Mapper;
 using UPT.Diploma.Management.Application.Middlewares;
 using UPT.Diploma.Management.Persistence.Extensions;
 
@@ -13,6 +14,7 @@ public static class ApplicationExtensions
     {
         services.AddPersistenceWithIdentity(connectionString);
         services.AddMediatR(c => c.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+        services.AddAutoMapper(typeof(MappingProfile));
         return services;
     }
     

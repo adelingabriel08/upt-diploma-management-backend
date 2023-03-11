@@ -2,6 +2,7 @@ using System.Net;
 using System.Text.Json;
 using Microsoft.AspNetCore.Http;
 using UPT.Diploma.Management.Application.Exceptions;
+using UPT.Diploma.Management.Application.ViewModels;
 
 namespace UPT.Diploma.Management.Application.Middlewares;
 
@@ -37,7 +38,7 @@ public class ExceptionHandlerMiddleware
         {
             case ValidationException validationException:
                 httpStatusCode = HttpStatusCode.BadRequest;
-                result = JsonSerializer.Serialize(validationException.ValidationErrors);
+                result = JsonSerializer.Serialize(new ErrorsViewModel{ Errors = validationException.ValidationErrors});
                 break;
             case Exception ex:
                 httpStatusCode = HttpStatusCode.InternalServerError;
