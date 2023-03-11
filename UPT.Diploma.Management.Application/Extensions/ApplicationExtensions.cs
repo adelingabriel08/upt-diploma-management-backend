@@ -1,3 +1,4 @@
+using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using UPT.Diploma.Management.Persistence.Extensions;
 
@@ -9,6 +10,7 @@ public static class ApplicationExtensions
         string connectionString)
     {
         services.AddPersistenceWithIdentity(connectionString);
+        services.AddMediatR(c => c.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
         return services;
     }
 }
