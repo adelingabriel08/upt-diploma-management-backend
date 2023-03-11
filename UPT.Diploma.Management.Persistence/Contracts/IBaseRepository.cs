@@ -5,14 +5,12 @@ namespace UPT.Diploma.Management.Persistence.Contracts;
 
 public interface IBaseRepository<TEntity> where TEntity : EntityBase
 {
-    Task AddAsync(TEntity entity);
-    Task DeleteAsync(TEntity entity);
+    Task AddAsync(TEntity entity, bool skipCommit = false);
+    Task DeleteAsync(TEntity entity, bool skipCommit = false);
     Task<ICollection<TEntity>> GetAsync();
     Task<TEntity> GetAsync(int id, bool asNoTracking = true);
     Task<ICollection<TEntity>> GetAsync(int skip, int take);
     Task<ICollection<TEntity>> GetAsync(Expression<Func<TEntity, bool>> expression);
-
-    Task StartDbTransactionAsync();
     Task CommitDbTransactionAsync();
     
 }

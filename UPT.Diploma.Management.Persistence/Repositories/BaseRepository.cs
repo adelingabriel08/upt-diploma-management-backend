@@ -15,17 +15,19 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
         _dbContext = dbContext;
     }
     
-    public async Task AddAsync(TEntity entity)
+    public async Task AddAsync(TEntity entity, bool skipCommit = false)
     {
         entity.CreatedTimeUtc = DateTime.UtcNow;
         await _dbContext.Set<TEntity>().AddAsync(entity);
-        await _dbContext.SaveChangesAsync();
+        if (!skipCommit)
+            await _dbContext.SaveChangesAsync();
     }
 
-    public async Task DeleteAsync(TEntity entity)
+    public async Task DeleteAsync(TEntity entity, bool skipCommit = false)
     {
         _dbContext.Set<TEntity>().Remove(entity);
-        await _dbContext.SaveChangesAsync();
+        if (!skipCommit)
+            await _dbContext.SaveChangesAsync();
     }
 
     public async Task<ICollection<TEntity>> GetAsync()
@@ -51,11 +53,6 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
     public async Task<ICollection<TEntity>> GetAsync(Expression<Func<TEntity, bool>> expression)
     {
         return await _dbContext.Set<TEntity>().AsNoTracking().Where(expression).ToListAsync();
-    }
-
-    public async Task StartDbTransactionAsync()
-    {
-        await _dbContext.Database.BeginTransactionAsync();
     }
 
     public async Task CommitDbTransactionAsync()

@@ -1,7 +1,7 @@
 
 namespace UPT.Diploma.Management.Domain.Models.Base;
 
-public class EntityBase
+public abstract class EntityBase
 {
     public int Id { get; set; }
     public DateTime CreatedTimeUtc { get; set; }
