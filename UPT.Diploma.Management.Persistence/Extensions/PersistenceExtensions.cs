@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using UPT.Diploma.Management.Domain.Models;
+using UPT.Diploma.Management.Persistence.Contracts;
 using UPT.Diploma.Management.Persistence.Database;
+using UPT.Diploma.Management.Persistence.Repositories;
 
 namespace UPT.Diploma.Management.Persistence.Extensions;
 
@@ -18,6 +20,8 @@ public static class PersistenceExtensions
         services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
+
+        services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 
         return services;
     }
