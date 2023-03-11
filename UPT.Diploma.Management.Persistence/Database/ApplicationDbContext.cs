@@ -48,5 +48,30 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityR
         modelBuilder.Entity<ApplicationUser>()
             .HasOne(x => x.Faculty)
             .WithMany(x => x.Users);
+
+        modelBuilder.Entity<Student>()
+            .Property(x => x.StudentIdentifier).HasMaxLength(8)
+            .IsRequired();
+
+        modelBuilder.Entity<Student>()
+            .HasIndex(x => x.StudentIdentifier)
+            .IsUnique();
+        
+        modelBuilder.Entity<Student>()
+            .Property(x => x.Specialization).HasMaxLength(200)
+            .IsRequired()
+            .IsUnicode();
+        
+        modelBuilder.Entity<Student>()
+            .Property(x => x.Profile).HasMaxLength(200)
+            .IsRequired()
+            .IsUnicode();
+
+        modelBuilder.Entity<Student>()
+            .HasOne(x => x.User)
+            .WithOne(x => x.Student)
+            .HasForeignKey<Student>(x => x.UserId)
+            .IsRequired();
+
     }
 }

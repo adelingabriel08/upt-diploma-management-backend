@@ -9,4 +9,5 @@ public sealed class ApplicationUser : IdentityUser
     public string ProfilePictureUrl { get; set; }
     public int FacultyId { get; set; }
     public Faculty? Faculty { get; set; }
+    public Student? Student { get; set; }
 }
