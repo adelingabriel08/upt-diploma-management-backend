@@ -25,7 +25,7 @@ public class FacultiesController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     GET /ac
+    ///     GET /api/faculties/ac
     ///
     /// </remarks>
     [HttpGet("{shortName}")]
