@@ -35,7 +35,7 @@ public class GetFacultyByShortNameHandler : IRequestHandler<GetFacultyByShortNam
 
         var viewModel = _mapper.Map<FacultyViewModel>(faculty);
 
-        return new BaseQueryResult<FacultyViewModel>() { QueryPayload = new FacultyViewModel(){ShortName = faculty.ShortName, Name = faculty.ShortName, Id = faculty.Id} };
+        return new BaseQueryResult<FacultyViewModel>() { QueryPayload = viewModel };
 
     }
 }
