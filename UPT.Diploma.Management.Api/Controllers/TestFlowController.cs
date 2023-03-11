@@ -1,5 +1,4 @@
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UPT.Diploma.Management.Application.Queries.TestFlowQuery;
 
