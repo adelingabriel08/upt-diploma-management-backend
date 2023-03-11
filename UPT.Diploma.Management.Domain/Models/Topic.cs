@@ -13,4 +13,5 @@ public class Topic : EntityBase
     public ApplicationUser? Professor { get; set; }
     public Company? Company { get; set; }
     public Faculty? Faculty { get; set; }
+    public ICollection<Application>? Applications { get; set; }
 }

@@ -9,4 +9,5 @@ public class Student : EntityBase
     public string Profile { get; set; }
     public string UserId { get; set; }
     public ApplicationUser? User { get; set; }
+    public ICollection<Application>? Applications { get; set; }
 }

@@ -115,5 +115,24 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityR
             .HasOne(x => x.Faculty)
             .WithMany(x => x.Topics)
             .IsRequired();
+        
+        modelBuilder.Entity<Application>()
+            .Property(x => x.Observations).HasMaxLength(500)
+            .IsUnicode();
+        
+        modelBuilder.Entity<Application>()
+            .HasOne(x => x.Professor)
+            .WithMany(x => x.Applications)
+            .IsRequired();
+        
+        modelBuilder.Entity<Application>()
+            .HasOne(x => x.Student)
+            .WithMany(x => x.Applications)
+            .IsRequired();
+        
+        modelBuilder.Entity<Application>()
+            .HasOne(x => x.Topic)
+            .WithMany(x => x.Applications)
+            .IsRequired();
     }
 }

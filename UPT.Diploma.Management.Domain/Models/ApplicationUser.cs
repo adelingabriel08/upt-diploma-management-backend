@@ -12,4 +12,5 @@ public sealed class ApplicationUser : IdentityUser
     public Student? Student { get; set; }
     public Company? Company { get; set; }
     public ICollection<Topic>? Topics { get; set; }
+    public ICollection<Application>? Applications { get; set; }
 }
