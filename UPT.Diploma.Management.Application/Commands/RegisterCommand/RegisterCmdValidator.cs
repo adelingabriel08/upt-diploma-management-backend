@@ -37,7 +37,7 @@ public class RegisterCmdValidator : AbstractValidator<RegisterCmd>
             .MaximumLength(20).WithMessage("Numărul de telefon nu poate avea mai mult de 50 caractere!")
             .Matches(new Regex(@"^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$")).WithMessage("Numărul de telefon nu este valid!");
 
-        RuleFor(x => x.PhoneNumber)
+        RuleFor(x => x.Password)
             .NotNull().WithMessage("Parola nu poate fi null!")
             .NotEmpty().WithMessage("Parola invalidă!");
 
