@@ -3,9 +3,11 @@ using System.Security.Claims;
 using System.Text;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using UPT.Diploma.Management.Application.Commands.Base;
 using UPT.Diploma.Management.Application.Exceptions;
+using UPT.Diploma.Management.Application.Options;
 using UPT.Diploma.Management.Domain.Models;
 
 namespace UPT.Diploma.Management.Application.Commands.RegisterCommand;
@@ -13,10 +15,12 @@ namespace UPT.Diploma.Management.Application.Commands.RegisterCommand;
 public class RegisterCmdHandler : IRequestHandler<RegisterCmd, TokenResult>
 {
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly JwtOptions _jwtOptions;
 
-    public RegisterCmdHandler(UserManager<ApplicationUser> userManager)
+    public RegisterCmdHandler(UserManager<ApplicationUser> userManager, IOptions<JwtOptions> jwtOptions)
     {
         _userManager = userManager;
+        _jwtOptions = jwtOptions.Value;
     }
 
     public async Task<TokenResult> Handle(RegisterCmd request, CancellationToken cancellationToken)
@@ -57,7 +61,7 @@ public class RegisterCmdHandler : IRequestHandler<RegisterCmd, TokenResult>
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.UtcNow.AddDays(30),
+            Expires = DateTime.UtcNow.AddDays(10),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
                 SecurityAlgorithms.HmacSha256Signature)
         };

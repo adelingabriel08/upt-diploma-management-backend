@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UPT.Diploma.Management.Application.Queries.Base;
 using UPT.Diploma.Management.Application.Queries.GetFacultyByShortNameQuery;
@@ -6,6 +7,7 @@ using UPT.Diploma.Management.Application.ViewModels;
 
 namespace UPT.Diploma.Management.Api.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/faculties")]
 public class FacultiesController : ControllerBase
