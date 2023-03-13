@@ -15,6 +15,7 @@ public static class ApplicationExtensions
         services.AddPersistenceWithIdentity(connectionString);
         services.AddMediatR(c => c.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
         services.AddAutoMapper(typeof(MappingProfile));
+        services.AddHttpContextAccessor();
         return services;
     }
     
