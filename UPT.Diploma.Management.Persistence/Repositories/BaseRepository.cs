@@ -18,6 +18,7 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
     public async Task AddAsync(TEntity entity, bool skipCommit = false)
     {
         entity.CreatedTimeUtc = DateTime.UtcNow;
+        entity.UpdatedTimeUtc = DateTime.UtcNow;
         await _dbContext.Set<TEntity>().AddAsync(entity);
         if (!skipCommit)
             await _dbContext.SaveChangesAsync();
@@ -53,6 +54,15 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
     public async Task<ICollection<TEntity>> GetAsync(Expression<Func<TEntity, bool>> expression)
     {
         return await _dbContext.Set<TEntity>().AsNoTracking().Where(expression).ToListAsync();
+    }
+    public async Task<TEntity> GetFirstAsync(Expression<Func<TEntity, bool>> expression)
+    {
+        return await _dbContext.Set<TEntity>().AsNoTracking().FirstOrDefaultAsync(expression);
+    }
+    
+    public async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> expression)
+    {
+        return await _dbContext.Set<TEntity>().AsNoTracking().AnyAsync(expression);
     }
 
     public async Task CommitDbTransactionAsync()

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using UPT.Diploma.Management.Application.Commands.Base;
+using UPT.Diploma.Management.Application.Constants;
 using UPT.Diploma.Management.Application.Exceptions;
 using UPT.Diploma.Management.Application.Options;
 using UPT.Diploma.Management.Domain.Models;
@@ -49,19 +50,26 @@ public class RegisterCmdHandler : IRequestHandler<RegisterCmd, TokenResult>
         if (!result.Succeeded)
             throw new ValidationException(string.Join(", ", result.Errors.Select(p => p.Description)));
 
+        await _userManager.AddToRolesAsync(user, request.Roles);
+
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(_jwtOptions.Secret);
         var claims = new List<Claim>
         {
-            new Claim(JwtRegisteredClaimNames.Sub, user.Id),
+            new Claim(CustomClaims.UserId, user.Id),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new Claim(JwtRegisteredClaimNames.Email, user.Email),
             new Claim(ClaimTypes.Name, user.FirstName + " " + user.LastName)
         };
+        var roles = await _userManager.GetRolesAsync(user);
+        foreach (var role in roles)
+        {
+            claims.Add(new Claim(ClaimTypes.Role, role));
+        }
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.UtcNow.AddDays(10),
+            Expires = DateTime.UtcNow.AddDays(3),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
                 SecurityAlgorithms.HmacSha256Signature)
         };
