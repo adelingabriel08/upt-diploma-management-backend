@@ -55,6 +55,17 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
     {
         return await _dbContext.Set<TEntity>().AsNoTracking().Where(expression).ToListAsync();
     }
+    
+    public async Task<List<TEntity>> GetAsync(Func<IQueryable<TEntity>, IQueryable<TEntity>> queryable, int skip = 0, int take = 0)
+    {
+        var query = _dbContext.Set<TEntity>().AsQueryable();
+        query = queryable(query);
+            
+        if (take > 0)
+            return await query.Skip(skip).Take(take).AsNoTracking().ToListAsync();
+
+        return await query.AsNoTracking().ToListAsync();
+    }
     public async Task<TEntity> GetFirstAsync(Expression<Func<TEntity, bool>> expression)
     {
         return await _dbContext.Set<TEntity>().AsNoTracking().FirstOrDefaultAsync(expression);

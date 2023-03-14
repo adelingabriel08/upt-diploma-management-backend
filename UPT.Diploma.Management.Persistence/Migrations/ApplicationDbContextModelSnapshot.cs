@@ -186,7 +186,7 @@ namespace UPT.Diploma.Management.Persistence.Migrations
 
                     b.HasIndex("TopicId");
 
-                    b.ToTable("Application");
+                    b.ToTable("Application", (string)null);
                 });
 
             modelBuilder.Entity("UPT.Diploma.Management.Domain.Models.ApplicationUser", b =>
@@ -312,7 +312,7 @@ namespace UPT.Diploma.Management.Persistence.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Company");
+                    b.ToTable("Company", (string)null);
                 });
 
             modelBuilder.Entity("UPT.Diploma.Management.Domain.Models.Faculty", b =>
@@ -344,7 +344,7 @@ namespace UPT.Diploma.Management.Persistence.Migrations
                     b.HasIndex("ShortName")
                         .IsUnique();
 
-                    b.ToTable("Faculties");
+                    b.ToTable("Faculties", (string)null);
                 });
 
             modelBuilder.Entity("UPT.Diploma.Management.Domain.Models.Student", b =>
@@ -388,7 +388,7 @@ namespace UPT.Diploma.Management.Persistence.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Student");
+                    b.ToTable("Student", (string)null);
                 });
 
             modelBuilder.Entity("UPT.Diploma.Management.Domain.Models.Topic", b =>
@@ -432,7 +432,7 @@ namespace UPT.Diploma.Management.Persistence.Migrations
 
                     b.HasIndex("ProfessorId");
 
-                    b.ToTable("Topic");
+                    b.ToTable("Topic", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

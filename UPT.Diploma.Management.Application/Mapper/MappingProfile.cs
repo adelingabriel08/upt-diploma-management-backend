@@ -10,5 +10,8 @@ public class MappingProfile : Profile
     {
         CreateMap<Faculty, FacultyViewModel>();
         CreateMap<FacultyViewModel, Faculty>();
+        CreateMap<Company, CompanyViewModel>();
+        CreateMap<CompanyViewModel, Company>();
+        CreateMap<ApplicationUser, UserViewModel>();
     }
 }

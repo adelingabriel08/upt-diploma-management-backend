@@ -13,6 +13,9 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityR
     }
     
     public DbSet<Faculty> Faculties { get; set; }
+    public DbSet<Company> Company { get; set; }
+    public DbSet<Student> Student { get; set; }
+    public DbSet<Topic> Topic { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

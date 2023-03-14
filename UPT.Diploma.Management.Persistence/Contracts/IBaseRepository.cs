@@ -11,6 +11,7 @@ public interface IBaseRepository<TEntity> where TEntity : EntityBase
     Task<TEntity> GetAsync(int id, bool asNoTracking = true);
     Task<ICollection<TEntity>> GetAsync(int skip, int take);
     Task<ICollection<TEntity>> GetAsync(Expression<Func<TEntity, bool>> expression);
+    Task<List<TEntity>> GetAsync(Func<IQueryable<TEntity>, IQueryable<TEntity>> queryable, int skip = 0, int take = 0);
     Task<TEntity> GetFirstAsync(Expression<Func<TEntity, bool>> expression);
     Task<bool> AnyAsync(Expression<Func<TEntity, bool>> expression);
     Task CommitDbTransactionAsync();
