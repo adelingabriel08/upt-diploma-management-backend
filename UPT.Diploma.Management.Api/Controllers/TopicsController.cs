@@ -12,6 +12,7 @@ using UPT.Diploma.Management.Application.ViewModels;
 
 namespace UPT.Diploma.Management.Api.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/topics")]
 public class TopicsController : ControllerBase
@@ -31,18 +32,11 @@ public class TopicsController : ControllerBase
     /// <param name="skip">Number of topics to be skipped.</param>
     /// <param name="take">Number of topics to be taken.</param>
     /// <returns>A list of topics.</returns>
-    /// <remarks>
-    /// Sample request:
-    ///
-    ///     GET /api/topics?skip=10&take=10
-    ///
-    /// </remarks>
     [HttpGet]
-    [Authorize]
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(BaseQueryResult<List<TopicViewModel>>))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorsViewModel))]
-    public async Task<IActionResult> GetCompany(int skip, int take)
+    public async Task<IActionResult> GetTopics(int skip, int take)
     {
         var cmd = new GetTopicsQuery() { Skip = skip, Take = take };
         return Ok(await _mediator.Send(cmd));
