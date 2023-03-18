@@ -1,8 +1,7 @@
-﻿using UPT.Diploma.Management.Application.ViewModels.Base;
-
+﻿
 namespace UPT.Diploma.Management.Application.ViewModels;
 
-public record UserViewModel : ViewModelBase
+public record UserViewModel
 {
     public string Id { get; set; }
     public string PhoneNumber { get; set; }

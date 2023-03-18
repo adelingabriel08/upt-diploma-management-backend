@@ -13,5 +13,7 @@ public class MappingProfile : Profile
         CreateMap<Company, CompanyViewModel>();
         CreateMap<CompanyViewModel, Company>();
         CreateMap<ApplicationUser, UserViewModel>();
+        CreateMap<Topic, TopicViewModel>();
+        CreateMap<TopicViewModel, Topic>();
     }
 }

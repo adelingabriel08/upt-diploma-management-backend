@@ -6,19 +6,46 @@ using UPT.Diploma.Management.Application.Commands.CreateTopicCmd;
 using UPT.Diploma.Management.Application.Commands.DeleteTopicCmd;
 using UPT.Diploma.Management.Application.Commands.EditTopicCmd;
 using UPT.Diploma.Management.Application.Constants;
+using UPT.Diploma.Management.Application.Queries.Base;
+using UPT.Diploma.Management.Application.Queries.GetTopicsQuery;
 using UPT.Diploma.Management.Application.ViewModels;
 
 namespace UPT.Diploma.Management.Api.Controllers;
 
 [ApiController]
-[Route("api/topic")]
-public class TopicController : ControllerBase
+[Route("api/topics")]
+public class TopicsController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public TopicController(IMediator mediator)
+    public TopicsController(IMediator mediator)
     {
         _mediator = mediator;
+    }
+    
+    /// <summary>
+    /// Retrieves the topics paginated based on the user role.
+    /// The students can get all the topics.
+    /// The professor or company employee will be able to get only the topics they own.
+    /// </summary>
+    /// <param name="skip">Number of topics to be skipped.</param>
+    /// <param name="take">Number of topics to be taken.</param>
+    /// <returns>A list of topics.</returns>
+    /// <remarks>
+    /// Sample request:
+    ///
+    ///     GET /api/topics?skip=10&take=10
+    ///
+    /// </remarks>
+    [HttpGet]
+    [Authorize]
+    [Produces("application/json")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(BaseQueryResult<List<TopicViewModel>>))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorsViewModel))]
+    public async Task<IActionResult> GetCompany(int skip, int take)
+    {
+        var cmd = new GetTopicsQuery() { Skip = skip, Take = take };
+        return Ok(await _mediator.Send(cmd));
     }
 
     /// <summary>

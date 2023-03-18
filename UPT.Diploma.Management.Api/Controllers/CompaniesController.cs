@@ -5,18 +5,19 @@ using UPT.Diploma.Management.Application.Commands.Base;
 using UPT.Diploma.Management.Application.Commands.CreateCompanyCmd;
 using UPT.Diploma.Management.Application.Commands.EditCompanyCmd;
 using UPT.Diploma.Management.Application.Constants;
+using UPT.Diploma.Management.Application.Queries.Base;
 using UPT.Diploma.Management.Application.Queries.GetCompanyByIdQuery;
 using UPT.Diploma.Management.Application.ViewModels;
 
 namespace UPT.Diploma.Management.Api.Controllers;
 
 [ApiController]
-[Route("api/company")]
-public class CompanyController : ControllerBase
+[Route("api/companies")]
+public class CompaniesController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public CompanyController(IMediator mediator)
+    public CompaniesController(IMediator mediator)
     {
         _mediator = mediator;
     }
@@ -34,7 +35,7 @@ public class CompanyController : ControllerBase
     /// </remarks>
     [HttpGet("{id}")]
     [Produces("application/json")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(BaseResult))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(BaseQueryResult<CompanyViewModel>))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorsViewModel))]
     public async Task<IActionResult> GetCompany(int id)
     {
